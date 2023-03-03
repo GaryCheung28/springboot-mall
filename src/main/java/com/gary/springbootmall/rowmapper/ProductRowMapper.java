@@ -20,8 +20,6 @@ public class ProductRowMapper implements RowMapper<Product> {
         ProductCategory category = ProductCategory.valueOf(categoryStr);
         product.setCategory(category);
 
-        //product.setCategory(ProductCategory.valueOf(resultSet.getString("category")));
-        //19-21=23   DB(String)->productcartegory enum ->  set category
 
 
         product.setImageUrl(resultSet.getString("image_url"));
