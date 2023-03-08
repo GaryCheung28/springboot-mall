@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import static org.springframework.http.ResponseEntity.status;
+
 @RestController
 public class ProductController {
 
@@ -21,9 +23,9 @@ public class ProductController {
         Product product = productService.getProductById(productId);
 
         if(product != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(product);
+            return status(HttpStatus.OK).body(product);
         }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -33,7 +35,7 @@ public class ProductController {
 
         Product product = productService.getProductById(productId);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+        return status(HttpStatus.CREATED).body(product);
     }
 
     @PutMapping("/products/{productId}")
@@ -43,13 +45,21 @@ public class ProductController {
         Product product = productService.getProductById(productId);
 
         if (product == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return status(HttpStatus.NOT_FOUND).build();
         }
         //修改商品的數據
         productService.updateProduct(productId, productRequest);
 
         Product updatedProduct = productService.getProductById((productId));
 
-        return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
+        return status(HttpStatus.OK).body(updatedProduct);
+    }
+
+
+    @DeleteMapping("/products/{productId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Integer productId){
+        productService.deleteProductById(productId);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
