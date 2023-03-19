@@ -73,7 +73,7 @@ public class ProductController {
         if(product != null) {
             return status(HttpStatus.OK).body(product);
         }else{
-            return status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -83,7 +83,7 @@ public class ProductController {
 
         Product product = productService.getProductById(productId);
 
-        return status(HttpStatus.CREATED).body(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
     @PutMapping("/products/{productId}")
